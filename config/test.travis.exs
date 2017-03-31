@@ -22,18 +22,16 @@
 ###############################################################################
 use Mix.Config
 
-config :udia,
-  ecto_repos: [Udia.Repo]
-
 config :udia, Udia.Web.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "5DVQC7qZ+N1uuJw8Stt+W2MzteZRo73h8CaODP3VRh5GAzO2JnvLievrbMb/sKNq",
-  render_errors: [view: Udia.Web.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Udia.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  http: [port: 4001],
+  server: false
 
-config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
+config :logger, level: :warn
 
-import_config "#{Mix.env}.exs"
+config :udia, Udia.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "",
+  database: "travis_ci_test",
+  hostname: "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox

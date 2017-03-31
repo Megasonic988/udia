@@ -3,13 +3,14 @@ defmodule Udia.Mixfile do
 
   def project do
     [app: :udia,
-     version: "0.0.1",
-     elixir: "~> 1.4",
+     version: "0.2.0",
+     elixir: "~> 1.4.1",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      start_permanent: Mix.env == :prod,
      aliases: aliases(),
-     deps: deps()]
+     deps: deps(),
+     test_coverage: [tool: ExCoveralls]]
   end
 
   # Configuration for the OTP application.
@@ -35,7 +36,9 @@ defmodule Udia.Mixfile do
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:excoveralls, "~> 0.6", only: :test},
+     {:credo, "~> 0.7", only: [:dev, :test]}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

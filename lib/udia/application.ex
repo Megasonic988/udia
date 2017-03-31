@@ -1,4 +1,7 @@
 defmodule Udia.Application do
+  @moduledoc """
+  Phoenix Web application root.
+  """
   use Application
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
