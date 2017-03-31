@@ -10,6 +10,8 @@ defmodule Udia.Mixfile do
      start_permanent: Mix.env == :prod,
      aliases: aliases(),
      deps: deps(),
+     description: description(),
+     package: package(),
      test_coverage: [tool: ExCoveralls]]
   end
 
@@ -39,6 +41,23 @@ defmodule Udia.Mixfile do
      {:cowboy, "~> 1.0"},
      {:excoveralls, "~> 0.6", only: :test},
      {:credo, "~> 0.7", only: [:dev, :test]}]
+  end
+
+  defp description do
+    """
+    A web application in pursuit of solving meaning, validating universal basic income, and happiness.
+    """
+  end
+
+  defp package do
+    [name: :udia,
+     files: ["lib", "priv", "mix.exs", "README*", "LICENSE*", "config", "test", "logo*", "elixir_buildpack.config",
+            "assets/css", "assets/js", "assets/static", "assets/vendor", "assets/brunch-config.js", "assets/package.json",   
+            "phoenix_static_buildpack.config", "Procfile", ".gitignore", ".travis.yml"],
+     maintainers: ["Udia Software Incorporated", "Alexander Wong"],
+     licenses: ["Common Public Attribution License Version 1.0 (CPAL)"],
+     links: %{"GitHub" => "https://github.com/udia-software/udia",
+              "Site" => "https://a.udia.ca"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
