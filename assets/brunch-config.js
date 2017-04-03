@@ -60,5 +60,8 @@ exports.config = {
 
   npm: {
     enabled: true
-  }
+  },
+
+  // Hot module reloading
+  hot: true
 };
