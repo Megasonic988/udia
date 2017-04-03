@@ -35,3 +35,6 @@ config :udia, Udia.Repo,
   database: System.get_env("POSTGRES_TEST_DB") || "udia_test",
   hostname: System.get_env("POSTGRES_HOSTNAME") || "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :guardian, Guardian,
+  secret_key: "8AkIfrSA1oWLv0n1aX0RnQhn6ID9LnspyqCvaMawQklazG8fgczu94LjVKQtFeAW"

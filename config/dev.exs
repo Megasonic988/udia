@@ -51,3 +51,6 @@ config :udia, Udia.Repo,
   database: System.get_env("POSTGRES_DEV_DB") || "udia_dev",
   hostname: System.get_env("POSTGRES_HOSTNAME") || "localhost",
   pool_size: 10
+
+config :guardian, Guardian,
+  secret_key: "8AkIfrSA1oWLv0n1aX0RnQhn6ID9LnspyqCvaMawQklazG8fgczu94LjVKQtFeAW"

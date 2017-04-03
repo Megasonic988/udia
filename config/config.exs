@@ -36,4 +36,10 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+config :guardian, Guardian,
+  issuer: "Udia",
+  ttl: {30, :days},
+  verify_issuer: true,
+  serializer: Udia.GuardianSerializer
+
 import_config "#{Mix.env}.exs"
