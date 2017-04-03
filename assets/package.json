@@ -1,6 +1,12 @@
 {
-  "repository": {},
-  "license": "MIT",
+  "name": "UDIA",
+  "description": "Universal Dream, Infinite Awareness",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/udia-software/udia.git"
+  },
+  "private": true,
+  "license": "CPAL-1.0",
   "scripts": {
     "deploy": "brunch build --production",
     "watch": "brunch watch --stdin"
