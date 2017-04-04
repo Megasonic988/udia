@@ -15,12 +15,13 @@ defmodule Udia.Web.UserControllerTest do
     assert %{
       "id" => id,
       "email" => "test@udia.ca",
-      "username" => "udia"
+      "username" => "udia",
     } = response["data"]
 
     assert is_integer(id)
     assert Map.has_key?(response, "meta")
     assert Map.has_key?(response["meta"], "token")
+    assert Map.has_key?(response["meta"], "exp")
   end
 
   test "does not create user if username is taken", %{conn: conn} do

@@ -7,10 +7,12 @@ defmodule Udia.Web.Api.SessionController do
       {:ok, user} ->
         new_conn = Guardian.Plug.api_sign_in(conn, user, :access)
         jwt = Guardian.Plug.current_token(new_conn)
+        {:ok, claims} = Guardian.Plug.claims(new_conn)
+        exp = Map.get(claims, "exp")
 
         new_conn
         |> put_status(:created)
-        |> render(Udia.Web.SessionView, "show.json", user: user, jwt: jwt)
+        |> render(Udia.Web.SessionView, "show.json", user: user, jwt: jwt, exp: exp)
       :error ->
         conn
         |> put_status(:unauthorized)
@@ -30,31 +32,29 @@ defmodule Udia.Web.Api.SessionController do
   def refresh(conn, _params) do
     user = Guardian.Plug.current_resource(conn)
     jwt = Guardian.Plug.current_token(conn)
-    {:ok, claims} = Guardian.Plug.claims(conn)
-
-    case Guardian.refresh!(jwt, claims, %{ttl: {30, :days}}) do
-      {:ok, new_jwt, _new_claims} ->
+    case Guardian.Plug.claims(conn) do
+      {:ok, claims} ->
+        {:ok, new_jwt, new_claims} = Guardian.refresh!(jwt, claims, %{ttl: {30, :days}})
+        exp = Map.get(new_claims, "exp")
         conn
         |> put_status(:ok)
-        |> render(Udia.Web.SessionView, "show.json", user: user, jwt: new_jwt)
+        |> render(Udia.Web.SessionView, "show.json", user: user, jwt: new_jwt, exp: exp)
       {:error, _reason} ->
         conn
-        |> put_status(:unauthorized)
+        |> put_status(:forbidden)
         |> render(Udia.Web.SessionView, "forbidden.json", error: "Not Authenticated")
     end
   end
 
-  def unauthenticated(conn, _params) do
-    conn
-    |> put_status(:forbidden)
-    |> render(Udia.Web.SessionView, "forbidden.json", error: "Not Authenticated")
-  end
-
   defp authenticate(%{"username" => username, "password" => password}) do
-    user = Repo.get_by(Udia.Accounts.User, username: username)
-    case check_password(user, password) do
-      true -> {:ok, user}
-      _ -> :error
+    if is_nil(username) do
+      :error
+    else
+      user = Repo.get_by(Udia.Accounts.User, username: username)
+      case check_password(user, password) do
+        true -> {:ok, user}
+        _ -> :error
+      end
     end
   end
 
