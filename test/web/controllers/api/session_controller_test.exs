@@ -45,7 +45,7 @@ defmodule Udia.Web.SessionControllerTest do
 
     # Refresh the token
     conn = build_conn()
-    |> put_req_header("authorization", "Bearer: " <> old_jwt)
+    |> put_req_header("authorization", "Bearer: #{old_jwt}")
     conn = post conn, session_path(conn, :refresh)
     assert json_response(conn, 200)
     new_jwt = json_response(conn, 200)["meta"]["token"]
@@ -53,15 +53,16 @@ defmodule Udia.Web.SessionControllerTest do
     # Assert tokens are not equal
     assert old_jwt !== new_jwt
 
-    # Ensure old token no longer works TODO: why dis pass
-    # conn = build_conn()
-    # |> put_req_header("authorization", "Bearer: #{old_jwt}")
-    # conn = post conn, session_path(conn, :refresh)
+    # Ensure old token no longer works
+    conn = build_conn()
+    |> put_req_header("authorization", "Bearer: #{old_jwt}")
+    conn = post conn, session_path(conn, :refresh)
+    # TODO: https://github.com/ueberauth/guardian/issues/284
     # assert json_response(conn, 403)
 
     # Ensure the new token is valid
     conn = build_conn()
-    |> put_req_header("authorization", "Bearer: " <> new_jwt)
+    |> put_req_header("authorization", "Bearer: #{new_jwt}")
     conn = post conn, session_path(conn, :refresh)
     assert json_response(conn, 200)
   end
