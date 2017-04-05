@@ -42,7 +42,7 @@ defmodule Udia.Web.Api.SessionController do
       {:error, _reason} ->
         conn
         |> put_status(:forbidden)
-        |> render(Udia.Web.SessionView, "forbidden.json", error: "Not Authenticated")
+        |> render(Udia.Web.SessionView, "forbidden.json", errors: ["Not Authenticated"])
     end
   end
 

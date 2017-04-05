@@ -16,7 +16,7 @@ defmodule Udia.Web.SessionView do
     %{ok: true}
   end
 
-  def render("forbidden.json", %{error: error}) do
-    %{error: error}
+  def render("forbidden.json", %{errors: errors}) do
+    %{errors: errors}
   end
 end

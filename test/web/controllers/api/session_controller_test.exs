@@ -53,13 +53,6 @@ defmodule Udia.Web.SessionControllerTest do
     # Assert tokens are not equal
     assert old_jwt !== new_jwt
 
-    # Ensure old token no longer works
-    conn = build_conn()
-    |> put_req_header("authorization", "Bearer: #{old_jwt}")
-    conn = post conn, session_path(conn, :refresh)
-    # TODO: https://github.com/ueberauth/guardian/issues/284
-    # assert json_response(conn, 403)
-
     # Ensure the new token is valid
     conn = build_conn()
     |> put_req_header("authorization", "Bearer: #{new_jwt}")
@@ -69,7 +62,7 @@ defmodule Udia.Web.SessionControllerTest do
 
   test "refresh session route returns unauthenticated on unauthenticated sessions", %{conn: conn} do
     conn = post conn, session_path(conn, :refresh)
-    assert json_response(conn, 401)["errors"] != %{}
+    assert json_response(conn, 403)["error"] != %{}
   end
 
   test "does not authenticate user when data is invalid (bad username)", %{conn: conn} do

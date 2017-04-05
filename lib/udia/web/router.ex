@@ -24,12 +24,12 @@ defmodule Udia.Web.Router do
 
     post "/sessions", SessionController, :create
     delete "/sessions", SessionController, :delete
+    post "/sessions/refresh", SessionController, :refresh
     resources "/users", UserController, only: [:create]
   end
 
   scope "/api", Udia.Web.Api do
     pipe_through [:api, :auth]
-    post "/sessions/refresh", SessionController, :refresh
   end
 
   scope "/", Udia.Web do

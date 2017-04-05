@@ -4,8 +4,6 @@ defmodule Udia.Web.Api.UserController do
   alias Udia.Accounts
   alias Udia.Accounts.User
 
-  action_fallback Udia.Web.FallbackController
-
   def create(conn, %{"user" => user_params}) do
     case Accounts.create_user(user_params) do
       {:ok, %User{} = user} ->

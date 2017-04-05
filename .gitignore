@@ -26,5 +26,9 @@ npm-debug.log
 # variables.
 /config/*.secret.exs
 
+# OSX
 .DS_Store
+
+# Coveralls HTML output
+/cover
 
