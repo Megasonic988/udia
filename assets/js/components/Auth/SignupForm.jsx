@@ -1,7 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { func } from 'prop-types';
 
 const propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: func.isRequired,
 };
 
 class SignupForm extends Component {

@@ -6,23 +6,24 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
+import './socket';
 import App from './components/App';
-import socket from './socket';
 
-import reducers from './reducers';
+import rootReducer from './rootReducer';
 
-const store = createStore(reducers);
+const store = createStore(rootReducer);
 
 if (module.hot) {
   module.hot.accept('./reducers', () => {
-    store.replaceReducer(require('./reducers').default);
+    store.replaceReducer(rootReducer);
   });
 }
 
 ReactDOM.render(
+  // eslint-disable-next-line react/jsx-filename-extension
   <Provider store={store}>
     <BrowserRouter>
-      <App/>
+      <App />
     </BrowserRouter>
   </Provider>,
   document.getElementById('app'),

@@ -1,10 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { func } from 'prop-types';
 import { signup } from '../../actions/session';
 import SignupForm from './SignupForm';
 
 const propTypes = {
-  signup: PropTypes.func,
+  signup: func,
 };
 
 const defaultProps = {
