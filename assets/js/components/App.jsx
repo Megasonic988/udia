@@ -1,37 +1,21 @@
-import React from "react"
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom"
+import React from 'react';
+import { Route, Link, Switch } from 'react-router-dom'
 
 import Navbar from './Navbar';
 import Login from './Auth/Login';
 import Signup from './Auth/Signup';
 
-const BasicExample = () => (
-  <BrowserRouter>
-    <div>
-      <Navbar/>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/topics" component={Topics} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route component={NoMatch} />
-      </Switch>
-    </div>
-  </BrowserRouter>
-)
-
 const Home = () => (
   <div>
     <h2>Home</h2>
   </div>
-)
+);
 
 const About = () => (
   <div>
     <h2>About</h2>
   </div>
-)
+);
 
 const Topics = ({ match }) => (
   <div>
@@ -59,13 +43,13 @@ const Topics = ({ match }) => (
       <h3>Please select a topic.</h3>
     )} />
   </div>
-)
+);
 
 const Topic = ({ match }) => (
   <div>
     <h3>{match.params.topicId}</h3>
   </div>
-)
+);
 
 const NoMatch = ({ location }) => (
   <div>
@@ -73,10 +57,22 @@ const NoMatch = ({ location }) => (
     <p>No match for <code>{location.pathname}</code></p>
     <p><Link to="/">Go to the home page →</Link></p>
   </div>
-)
+);
+
+const BasicExample = () => (<div>
+  <Navbar />
+  <Switch>
+    <Route exact path="/" component={Home} />
+    <Route path="/about" component={About} />
+    <Route path="/topics" component={Topics} />
+    <Route path="/login" component={Login} />
+    <Route path="/signup" component={Signup} />
+    <Route component={NoMatch} />
+  </Switch>
+</div>);
 
 export default class App extends React.Component {
   render() {
-    return (<BasicExample />)
+    return (<BasicExample />);
   }
 }

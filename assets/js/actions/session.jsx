@@ -1,4 +1,3 @@
-import { reset } from 'redux-form';
 import api from '../api';
 
 function setCurrentUser(dispatch, response) {
@@ -10,7 +9,6 @@ export function login(data, router) {
   return dispatch => api.post('/sessions', data)
     .then((response) => {
       setCurrentUser(dispatch, response);
-      dispatch(reset('login'));
       router.transitionTo('/');
     });
 }
@@ -19,7 +17,6 @@ export function signup(data, router) {
   return dispatch => api.post('/users', data)
     .then((response) => {
       setCurrentUser(dispatch, response);
-      dispatch(reset('signup'));
       router.transitionTo('/');
     });
 }

@@ -4,16 +4,16 @@ import { login } from '../../actions/session';
 import LoginForm from './LoginForm';
 
 const propTypes = {
-  login: PropTypes.func
-}
+  login: PropTypes.func,
+};
 
 const defaultProps = {
-  login: () => {}
-}
+  login: () => {},
+};
 
 class Login extends Component {
   render() {
-    return <LoginForm onSubmit={this.props.login}/>
+    return <LoginForm onSubmit={this.props.login} />;
   }
 }
 

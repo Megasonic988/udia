@@ -4,16 +4,16 @@ import { signup } from '../../actions/session';
 import SignupForm from './SignupForm';
 
 const propTypes = {
-  signup: PropTypes.func
-}
+  signup: PropTypes.func,
+};
 
 const defaultProps = {
-  signup: () => {}
-}
+  signup: () => {},
+};
 
 class Signup extends Component {
   render() {
-    return <SignupForm onSubmit={this.props.signup}/>
+    return <SignupForm onSubmit={this.props.signup} />;
   }
 }
 

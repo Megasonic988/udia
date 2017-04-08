@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
 
 const propTypes = {
-  onSubmit: PropTypes.func.isRequired
-}
+  onSubmit: PropTypes.func.isRequired,
+};
 
 class LoginForm extends Component {
   render() {
@@ -15,7 +14,7 @@ class LoginForm extends Component {
       <label>Password</label>
       <input type="password" placeholder="Password" />
       <button type="submit">Submit</button>
-    </form>)
+    </form>);
   }
 }
 
