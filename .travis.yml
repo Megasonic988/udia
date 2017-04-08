@@ -12,4 +12,4 @@ before_script:
 script:
   - mix coveralls.travis
   - mix credo
-  - cd assets && npm run eslint
+  - cd assets && npm install && npm run eslint
