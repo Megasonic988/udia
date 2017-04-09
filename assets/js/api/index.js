@@ -57,7 +57,7 @@ export default {
     .then(parseResponse);
   },
 
-  delete(url) {
+  del(url) {
     return fetch(`${API}${url}`, {
       method: 'DELETE',
       headers: headers(),

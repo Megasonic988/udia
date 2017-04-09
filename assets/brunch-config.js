@@ -2,7 +2,7 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      joinTo: "js/app.js"
+      joinTo: 'js/app.js',
 
       // To use a separate vendor.js bundle, specify two files path
       // https://github.com/brunch/brunch/blob/master/docs/config.md#files
@@ -21,47 +21,47 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css"
+      joinTo: 'css/app.css',
     },
     templates: {
-      joinTo: "js/app.js"
-    }
+      joinTo: 'js/app.js',
+    },
   },
 
   conventions: {
     // This option sets where we should place non-css and non-js assets in.
     // By default, we set this to "/assets/static". Files in this directory
     // will be copied to `paths.public`, which is "priv/static" by default.
-    assets: /^(static)/
+    assets: /^(static)/,
   },
 
   // Phoenix paths configuration
   paths: {
     // Dependencies and current project directories to watch
-    watched: ["static", "css", "js", "vendor"],
+    watched: ['static', 'css', 'js', 'vendor'],
     // Where to compile files to
-    public: "../priv/static"
+    public: '../priv/static',
   },
 
   // Configure your plugins
   plugins: {
     babel: {
-      presets: ["env", "stage-1", "react"],
+      presets: ['env', 'stage-1', 'react'],
       // Do not use ES6 compiler in vendor code
-      ignore: [/vendor/]
-    }
+      ignore: [/vendor/],
+    },
   },
 
   modules: {
     autoRequire: {
-      "js/app.js": ["js/index"]
-    }
+      'js/app.js': ['js/index'],
+    },
   },
 
   npm: {
-    enabled: true
+    enabled: true,
   },
 
   // Hot module reloading
-  hot: true
+  hot: true,
 };
