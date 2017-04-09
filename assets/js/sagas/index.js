@@ -4,15 +4,7 @@
 
 // Sagas help us gather all our side effects (network requests in this case) in one place
 
-/*
-import {
-  take,
-  call,
-  put,
-  fork,
-  race,
-} from 'redux-saga/effects';
-*/
+// import { take, call, put, fork, race } from 'redux-saga/effects';
 import { effects } from 'redux-saga';
 
 import {
