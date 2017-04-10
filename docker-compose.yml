@@ -15,6 +15,7 @@ services:
       - .:/app
     ports:
       - "4000:4000"
+      - "9485:9485"
     depends_on:
       - db
     links:
