@@ -52,9 +52,6 @@ class Signin extends Component {
   render = () => {
     const { currentlySending, error } = this.props.data;
 
-    console.log('signin');
-    console.log(this.props);
-
     return (
       <div>
         <h2>Signin</h2>
@@ -75,7 +72,7 @@ class Signin extends Component {
           </Form.Field>
           {!!error && <Message
             error={!!error}
-            header={'Login Failed'}
+            header={'Signin Failed'}
             content={error}
           />}
           <Button type="submit">Submit</Button>

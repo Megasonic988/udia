@@ -5,7 +5,7 @@ import {
   REQUEST_ERROR,
   CLEAR_ERROR,
 } from '../actions/constants';
-import auth from '../auth';
+import { signedIn } from '../auth';
 
 // The initial application state
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
   },
   error: '',
   currentlySending: false,
-  loggedIn: auth.signedIn(),
+  loggedIn: signedIn(),
 };
 
 // Takes care of changing the application state

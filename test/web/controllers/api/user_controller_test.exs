@@ -2,6 +2,7 @@ defmodule Udia.Web.UserControllerTest do
   use Udia.Web.ConnCase
 
   @create_attrs %{email: "test@udia.ca", password: "hunter2", username: "udia"}
+  @create_emailless_attrs %{password: "hunter2", username: "udia"}
   @nil_attrs %{email: nil, password_hash: nil, username: nil}
 
   setup %{conn: conn} do
@@ -15,6 +16,21 @@ defmodule Udia.Web.UserControllerTest do
     assert %{
       "id" => id,
       "email" => "test@udia.ca",
+      "username" => "udia",
+    } = response["data"]
+
+    assert is_integer(id)
+    assert Map.has_key?(response, "meta")
+    assert Map.has_key?(response["meta"], "token")
+    assert Map.has_key?(response["meta"], "exp")
+  end
+
+  test "creates user and renders user when data is valid (no email)", %{conn: conn} do
+    conn = post conn, user_path(conn, :create), user: @create_emailless_attrs
+    response = json_response(conn, 201)
+
+    assert %{
+      "id" => id,
       "username" => "udia",
     } = response["data"]
 

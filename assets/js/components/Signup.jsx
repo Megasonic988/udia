@@ -7,10 +7,10 @@ import { changeForm, registerRequest } from '../actions';
 const propTypes = {
   dispatch: func,
   data: shape({
-    formState: {
+    formState: shape({
       username: string,
       password: string,
-    },
+    }),
   }),
 };
 
@@ -52,9 +52,6 @@ class Signup extends Component {
   render() {
     const { currentlySending, error } = this.props.data;
 
-    console.log('signin');
-    console.log(this.props);
-
     return (
       <div>
         <h2>Signup</h2>
@@ -75,7 +72,7 @@ class Signup extends Component {
           </Form.Field>
           {!!error && <Message
             error={!!error}
-            header={'Login Failed'}
+            header={'Signup Failed'}
             content={error}
           />}
           <Button type="submit">Submit</Button>

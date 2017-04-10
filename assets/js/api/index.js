@@ -26,7 +26,7 @@ function queryString(params) {
   return `${query.length ? '?' : ''}${query}`;
 }
 
-export function fetch(url, params = {}) {
+export function get(url, params = {}) {
   return fetch(`${API}${url}${queryString(params)}`, {
     method: 'GET',
     headers: headers(),
