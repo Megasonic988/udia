@@ -4,7 +4,7 @@ defmodule Udia.Mixfile do
   def project do
     [app: :udia,
      version: "0.2.0",
-     elixir: "~> 1.4.1",
+     elixir: "~> 1.4.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      start_permanent: Mix.env == :prod,
