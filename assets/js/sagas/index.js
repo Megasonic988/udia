@@ -17,7 +17,7 @@ import {
   REQUEST_ERROR,
 } from '../actions/constants';
 
-import * as auth from '../auth';
+import auth from '../auth';
 
 /**
  * Effect to handle authorization
@@ -37,12 +37,11 @@ export function* authorize({
   });
 
   try {
-    console.log(auth);
     let response;
     if (isRegistering) {
-      response = yield effects.call(auth.default.signup, username, password);
+      response = yield effects.call(auth.signup, username, password);
     } else {
-      response = yield effects.call(auth.default.signin, username, password);
+      response = yield effects.call(auth.signin, username, password);
     }
     return response;
   } catch (error) {
@@ -69,7 +68,7 @@ export function* logout() {
   });
 
   try {
-    const response = yield effects.call(auth.default.signout);
+    const response = yield effects.call(auth.signout);
     return response;
   } catch (error) {
     yield effects.put({

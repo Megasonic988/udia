@@ -40,7 +40,7 @@ class Navbar extends Component {
         active={activeItem === 'signin'}
         onClick={this.handleItemClick}
       >
-        Login
+        Signin
       </Menu.Item>
       <Menu.Item
         as={Link}
