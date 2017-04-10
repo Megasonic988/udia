@@ -58,10 +58,10 @@ const socket = new Socket('/socket', {
 socket.connect();
 
 // Now that you are connected, you can join channels with a topic:
-const channel = socket.channel('topic:subtopic', {});
+const channel = socket.channel('post:subtopic', {});
 channel.join()
   .receive('ok', (resp) => {
-    console.debug('Joined successfully', resp);
+    console.log('Joined successfully', resp);
   })
   .receive('error', (resp) => {
     console.error('Unable to join', resp);

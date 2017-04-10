@@ -15,7 +15,7 @@ const initialState = {
   },
   error: '',
   currentlySending: false,
-  loggedIn: auth.loggedIn(),
+  loggedIn: auth.signedIn(),
 };
 
 // Takes care of changing the application state

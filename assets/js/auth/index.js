@@ -13,8 +13,8 @@ const auth = {
    * @param  {string} username The username of the user
    * @param  {string} password The password of the user
    */
-  login(username, password) {
-    if (auth.loggedIn()) return Promise.resolve(true);
+  signin(username, password) {
+    if (auth.default.signedIn()) return Promise.resolve(true);
 
     return post('/sessions', {
       username,
@@ -29,14 +29,14 @@ const auth = {
   /**
    * Logs the current user out
    */
-  logout() {
+  signout() {
     return del('/sessions');
   },
 
   /**
    * Checks if a user is logged in
    */
-  loggedIn() {
+  signedIn() {
     return !!localStorage.token;
   },
 
@@ -45,7 +45,7 @@ const auth = {
    * @param  {string} username The username of the user
    * @param  {string} password The password of the user
    */
-  register(username, password) {
+  signup(username, password) {
     return post('/users', {
       username,
       password,
@@ -53,8 +53,6 @@ const auth = {
       auth.login(username, password);
     });
   },
-
-  onChange() {},
 };
 
 export default auth;

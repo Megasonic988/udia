@@ -2,7 +2,7 @@ defmodule Udia.Web.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", Udia.Web.RoomChannel
+  channel "post:*", Udia.Web.PostChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
