@@ -1,1 +1,9 @@
-<div id="app">UDIA</div>
+<div id="app" style="width:100%; height:100%;">
+  <div style="display:flex;justify-content:center;align-items:center;height:100%;">
+    <div style="width:300px;">
+      <object data="/icon/icon.svg" type="image/svg+xml">
+        <img src="/icon/apple-icon.png" />
+      </object>
+    </div>
+  </div>
+</div>
