@@ -9,14 +9,14 @@ defmodule Udia.Web.SessionView do
   end
 
   def render("error.json", _) do
-    %{errors: ["Invalid username or password"]}
+    %{error: "Invalid username or password"}
   end
 
   def render("delete.json", _) do
     %{ok: true}
   end
 
-  def render("forbidden.json", %{errors: errors}) do
-    %{errors: errors}
+  def render("forbidden.json", %{error: error}) do
+    %{error: error}
   end
 end

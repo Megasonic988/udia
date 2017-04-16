@@ -46,11 +46,11 @@ defmodule Udia.Web.UserControllerTest do
 
     new_conn = post conn, user_path(conn, :create), user: @create_attrs
     response = json_response(new_conn, 422)
-    assert %{"username" => ["has already been taken"]} = response["errors"]
+    assert %{"username" => ["has already been taken"]} == response["errors"]
   end
 
   test "does not create user and renders errors when data is invalid", %{conn: conn} do
     conn = post conn, user_path(conn, :create), user: @nil_attrs
-    assert json_response(conn, 422)["errors"] != %{}
+    assert json_response(conn, 422)["errors"] == %{"username" => ["can't be blank"]}
   end
 end

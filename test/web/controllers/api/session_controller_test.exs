@@ -62,21 +62,21 @@ defmodule Udia.Web.SessionControllerTest do
 
   test "refresh session route returns unauthenticated on unauthenticated sessions", %{conn: conn} do
     conn = post conn, session_path(conn, :refresh)
-    assert json_response(conn, 403)["error"] != %{}
+    assert json_response(conn, 403)["error"] == "Not Authenticated"
   end
 
   test "does not authenticate user when data is invalid (bad username)", %{conn: conn} do
     conn = post conn, session_path(conn, :create), @incorrect_username_attrs
-    assert json_response(conn, 401)["errors"] != %{}
+    assert json_response(conn, 401)["error"] == "Invalid username or password"
   end
 
   test "does not authenticate user when data is invalid (bad password)", %{conn: conn} do
     conn = post conn, session_path(conn, :create), @incorrect_password_attrs
-    assert json_response(conn, 401)["errors"] != %{}
+    assert json_response(conn, 401)["error"] == "Invalid username or password"
   end
 
   test "does not authenticate user when data is invalid (nil)", %{conn: conn} do
     conn = post conn, session_path(conn, :create), @nil_attrs
-    assert json_response(conn, 401)["errors"] != %{}
+    assert json_response(conn, 401)["error"] == "Invalid username or password"
   end
 end

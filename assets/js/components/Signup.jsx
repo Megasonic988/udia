@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { func, shape, string } from 'prop-types';
 import { Button, Form, Input, Message } from 'semantic-ui-react';
-import { changeForm, registerRequest } from '../actions';
+import { clearError, registerRequest } from '../actions';
 
 const propTypes = {
   dispatch: func,
@@ -25,28 +25,30 @@ const defaultProps = {
 };
 
 class Signup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+    };
+
+    this.props.dispatch(clearError());
+  }
+
   onSubmit = (event) => {
     event.preventDefault();
     this.props.dispatch(registerRequest({
-      username: this.props.data.formState.username,
-      password: this.props.data.formState.password,
+      username: this.state.username,
+      password: this.state.password,
     }));
   }
 
   changeUsername = (event) => {
-    this.emitChange(
-      { ...this.props.data.formState, username: event.target.value },
-    );
+    this.setState({ username: event.target.value });
   }
 
   changePassword = (event) => {
-    this.emitChange(
-      { ...this.props.data.formState, password: event.target.value },
-    );
-  }
-
-  emitChange = (newFormState) => {
-    this.props.dispatch(changeForm(newFormState));
+    this.setState({ password: event.target.value });
   }
 
   render() {
@@ -60,20 +62,20 @@ class Signup extends Component {
             <Input
               label="Username" type="text" placeholder="username"
               onChange={this.changeUsername}
-              value={this.props.data.formState.username}
+              value={this.state.username}
             />
           </Form.Field>
           <Form.Field>
             <Input
               label="Password" type="password" placeholder="••••••••••"
               onChange={this.changePassword}
-              value={this.props.data.formState.password}
+              value={this.state.password}
             />
           </Form.Field>
           {!!error && <Message
             error={!!error}
-            header={'Signup Failed'}
-            content={error}
+            header="Signup Failed"
+            list={Object.keys(error).map(p => <Message.Item key={p} >{p} {error[p]}</Message.Item>)}
           />}
           <Button type="submit">Submit</Button>
         </Form>

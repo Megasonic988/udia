@@ -1,56 +1,51 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { func, shape, string } from 'prop-types';
+import { bool, func, string } from 'prop-types';
 import { Button, Form, Input, Message } from 'semantic-ui-react';
-import { changeForm, loginRequest } from '../actions';
+import { clearError, loginRequest } from '../actions';
 
 const propTypes = {
   dispatch: func,
-  data: shape({
-    formState: shape({
-      username: string,
-      password: string,
-    }),
-  }),
+  currentlySending: bool,
+  error: string,
 };
 
 const defaultProps = {
   dispatch: () => { },
-  data: {
-    formState: {
-      username: '',
-      password: '',
-    },
-  },
+  currentlySending: false,
+  error: '',
 };
 
 class Signin extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+    };
+
+    this.props.dispatch(clearError());
+  }
+
   onSubmit = (event) => {
     event.preventDefault();
+
     this.props.dispatch(loginRequest({
-      username: this.props.data.formState.username,
-      password: this.props.data.formState.password,
+      username: this.state.username,
+      password: this.state.password,
     }));
   }
 
   changeUsername = (event) => {
-    this.emitChange(
-      { ...this.props.data.formState, username: event.target.value },
-    );
+    this.setState({ username: event.target.value });
   }
 
   changePassword = (event) => {
-    this.emitChange(
-      { ...this.props.data.formState, password: event.target.value },
-    );
-  }
-
-  emitChange = (newFormState) => {
-    this.props.dispatch(changeForm(newFormState));
+    this.setState({ password: event.target.value });
   }
 
   render = () => {
-    const { currentlySending, error } = this.props.data;
+    const { currentlySending, error } = this.props;
 
     return (
       <div>
@@ -60,14 +55,14 @@ class Signin extends Component {
             <Input
               label="Username" type="text" placeholder="username"
               onChange={this.changeUsername}
-              value={this.props.data.formState.username}
+              value={this.state.username}
             />
           </Form.Field>
           <Form.Field>
             <Input
               label="Password" type="password" placeholder="••••••••••"
               onChange={this.changePassword}
-              value={this.props.data.formState.password}
+              value={this.state.password}
             />
           </Form.Field>
           {!!error && <Message
@@ -85,12 +80,8 @@ class Signin extends Component {
 Signin.propTypes = propTypes;
 Signin.defaultProps = defaultProps;
 
-// Which props do we want to inject, given the global state?
-function select(state) {
-  return {
-    data: state,
-  };
+function mapStateToProps(state) {
+  return state;
 }
 
-// Wrap the component to inject dispatch and state into it
-export default connect(select)(Signin);
+export default connect(mapStateToProps)(Signin);

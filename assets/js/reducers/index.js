@@ -1,5 +1,4 @@
 import {
-  CHANGE_FORM,
   SET_AUTH,
   SENDING_REQUEST,
   REQUEST_ERROR,
@@ -9,10 +8,6 @@ import { signedIn } from '../auth';
 
 // The initial application state
 const initialState = {
-  formState: {
-    username: '',
-    password: '',
-  },
   error: '',
   currentlySending: false,
   loggedIn: signedIn(),
@@ -21,10 +16,6 @@ const initialState = {
 // Takes care of changing the application state
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_FORM:
-      return { ...state,
-        formState: action.newFormState,
-      };
     case SET_AUTH:
       return { ...state,
         loggedIn: action.newAuthState,

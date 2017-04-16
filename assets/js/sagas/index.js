@@ -19,17 +19,9 @@ import {
 
 import { signup, signin, signout } from '../auth';
 
-/**
- * Effect to handle authorization
- * @param  {string} username               The username of the user
- * @param  {string} password               The password of the user
- * @param  {object} options                Options
- * @param  {boolean} options.isRegistering Is this a register request?
- */
-export function* authorize({
+export function* register({
   username,
   password,
-  isRegistering,
 }) {
   yield effects.put({
     type: SENDING_REQUEST,
@@ -37,17 +29,36 @@ export function* authorize({
   });
 
   try {
-    let response;
-    if (isRegistering) {
-      response = yield effects.call(signup, username, password);
-    } else {
-      response = yield effects.call(signin, username, password);
-    }
-    return response;
-  } catch (error) {
+    return yield effects.call(signup, username, password);
+  } catch (exception) {
     yield effects.put({
       type: REQUEST_ERROR,
-      error: error.message,
+      error: exception.errors,
+    });
+    return false;
+  } finally {
+    yield effects.put({
+      type: SENDING_REQUEST,
+      sending: false,
+    });
+  }
+}
+
+export function* login({
+  username,
+  password,
+}) {
+  yield effects.put({
+    type: SENDING_REQUEST,
+    sending: true,
+  });
+
+  try {
+    return yield effects.call(signin, username, password);
+  } catch (exception) {
+    yield effects.put({
+      type: REQUEST_ERROR,
+      error: exception.error,
     });
     return false;
   } finally {
@@ -96,10 +107,9 @@ export function* loginFlow() {
     } = request.data;
 
     const winner = yield effects.race({
-      auth: effects.call(authorize, {
+      auth: effects.call(login, {
         username,
         password,
-        isRegistering: false,
       }),
       logout: effects.take(LOGOUT),
     });
@@ -146,10 +156,9 @@ export function* registerFlow() {
       password,
     } = request.data;
 
-    const wasSuccessful = yield effects.call(authorize, {
+    const wasSuccessful = yield effects.call(register, {
       username,
       password,
-      isRegistering: true,
     });
 
     if (wasSuccessful) {
