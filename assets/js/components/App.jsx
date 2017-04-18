@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import { string, shape } from 'prop-types';
 
+import PrivateRoute from './PrivateRoute';
 import Navbar from './Navbar';
 import Signin from './Signin';
 import Signup from './Signup';
@@ -42,7 +43,7 @@ const App = () => (<div>
     <Route path="/about" component={About} />
     <Route path="/signin" component={Signin} />
     <Route path="/signup" component={Signup} />
-    <Route path="/profile" component={Profile} />
+    <PrivateRoute path="/profile" component={Profile} />
     <Route component={NoMatch} />
   </Switch>
 </div>);

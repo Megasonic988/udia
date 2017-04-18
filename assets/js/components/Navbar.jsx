@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bool } from 'prop-types';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
+import { logout } from '../actions';
 
 const propTypes = {
-  loggedIn: bool
-};
-
-const defaultProps = {
-  loggedIn: false
+  dispatch: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired
 };
 
 class Navbar extends Component {
@@ -20,6 +18,10 @@ class Navbar extends Component {
 
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
+  }
+
+  handleSignOut = () => {
+    this.props.dispatch(logout());
   }
 
   render() {
@@ -55,6 +57,13 @@ class Navbar extends Component {
         >
           My Profile
         </Menu.Item>
+        <Menu.Item
+          name="signout"
+          active={activeItem === 'signout'}
+          onClick={this.handleSignOut}
+        >
+          Sign Out
+        </Menu.Item>
       </Menu.Menu>}
       {!loggedIn && <Menu.Menu position="right">
         <Menu.Item
@@ -64,7 +73,7 @@ class Navbar extends Component {
           active={activeItem === 'signin'}
           onClick={this.handleItemClick}
         >
-          Signin
+          Sign In
         </Menu.Item>
         <Menu.Item
           as={Link}
@@ -73,7 +82,7 @@ class Navbar extends Component {
           active={activeItem === 'signup'}
           onClick={this.handleItemClick}
         >
-          Signup
+          Sign Up
         </Menu.Item>
       </Menu.Menu>}
     </Menu>);
@@ -81,7 +90,6 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = propTypes;
-Navbar.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return state;

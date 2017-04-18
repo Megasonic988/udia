@@ -1,27 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { func, shape, string } from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Button, Form, Input, Message } from 'semantic-ui-react';
 import { clearError, registerRequest } from '../actions';
 
 const propTypes = {
-  dispatch: func,
-  data: shape({
-    formState: shape({
-      username: string,
-      password: string
-    })
-  })
+  dispatch: PropTypes.func,
+  currentlySending: PropTypes.bool,
+  error: PropTypes.string,
+  location: PropTypes.shape({
+    state: PropTypes.shape({})
+  }),
+  loggedIn: PropTypes.bool.isRequired
 };
 
 const defaultProps = {
   dispatch: () => { },
-  data: {
-    formState: {
-      username: '',
-      password: ''
-    }
-  }
+  currentlySending: false,
+  error: '',
+  location: { state: {} }
 };
 
 class Signup extends Component {
@@ -52,7 +50,13 @@ class Signup extends Component {
   }
 
   render() {
-    const { currentlySending, error } = this.props.data;
+    const { username, password } = this.state;
+    const { currentlySending, error } = this.props;
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
+
+    if (this.props.loggedIn) {
+      return <Redirect to={from} />;
+    }
 
     return (
       <div>
@@ -62,14 +66,14 @@ class Signup extends Component {
             <Input
               label="Username" type="text" placeholder="username"
               onChange={this.changeUsername}
-              value={this.state.username}
+              value={username}
             />
           </Form.Field>
           <Form.Field>
             <Input
               label="Password" type="password" placeholder="••••••••••"
               onChange={this.changePassword}
-              value={this.state.password}
+              value={password}
             />
           </Form.Field>
           {!!error && <Message
@@ -87,10 +91,8 @@ class Signup extends Component {
 Signup.propTypes = propTypes;
 Signup.defaultProps = defaultProps;
 
-function select(state) {
-  return {
-    data: state
-  };
+function mapStateToProps(state) {
+  return state;
 }
 
-export default connect(select)(Signup);
+export default connect(mapStateToProps)(Signup);
