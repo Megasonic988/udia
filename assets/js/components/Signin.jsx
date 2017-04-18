@@ -7,13 +7,13 @@ import { clearError, loginRequest } from '../actions';
 const propTypes = {
   dispatch: func,
   currentlySending: bool,
-  error: string,
+  error: string
 };
 
 const defaultProps = {
   dispatch: () => { },
   currentlySending: false,
-  error: '',
+  error: ''
 };
 
 class Signin extends Component {
@@ -21,7 +21,7 @@ class Signin extends Component {
     super(props);
     this.state = {
       username: '',
-      password: '',
+      password: ''
     };
 
     this.props.dispatch(clearError());
@@ -32,7 +32,7 @@ class Signin extends Component {
 
     this.props.dispatch(loginRequest({
       username: this.state.username,
-      password: this.state.password,
+      password: this.state.password
     }));
   }
 

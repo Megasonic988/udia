@@ -1,5 +1,10 @@
 const API = '/api';
 
+// If testing, use localStorage polyfill, else use browser localStorage
+const localStorage = global.process && process.env.NODE_ENV === 'test' ?
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  require('localStorage') : global.window.localStorage;
+
 function headers() {
   const token = JSON.parse(localStorage.getItem('token'));
 

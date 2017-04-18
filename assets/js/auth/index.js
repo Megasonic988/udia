@@ -27,6 +27,7 @@ export function signin(username, password) {
     password
   }).then((response) => {
     // Save token to local storage
+    console.log(response);
     localStorage.token = response.token;
     return Promise.resolve(true);
   });
@@ -51,6 +52,7 @@ export function signup(username, password) {
       password
     }
   }).then((response) => {
+    console.log(response);
     localStorage.token = response.token;
     return Promise.resolve(true);
   });

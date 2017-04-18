@@ -5,6 +5,7 @@ import { string, shape } from 'prop-types';
 import Navbar from './Navbar';
 import Signin from './Signin';
 import Signup from './Signup';
+import Profile from './Profile';
 
 const Home = () => (
   <div>
@@ -30,8 +31,8 @@ const NoMatch = ({ location }) => (
 
 NoMatch.propTypes = {
   location: shape({
-    pathname: string.isRequired,
-  }).isRequired,
+    pathname: string.isRequired
+  }).isRequired
 };
 
 const App = () => (<div>
@@ -41,6 +42,7 @@ const App = () => (<div>
     <Route path="/about" component={About} />
     <Route path="/signin" component={Signin} />
     <Route path="/signup" component={Signup} />
+    <Route path="/profile" component={Profile} />
     <Route component={NoMatch} />
   </Switch>
 </div>);

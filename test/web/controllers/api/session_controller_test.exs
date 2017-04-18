@@ -16,15 +16,7 @@ defmodule Udia.Web.SessionControllerTest do
     conn = post conn, session_path(conn, :create), @login_attrs
     response = json_response(conn, 201)
 
-    assert %{
-      "id" => id,
-      "email" => "test@udia.ca",
-      "username" => "udia"
-    } = response["data"]
-
-    assert is_integer(id)
-    assert Map.has_key?(response, "meta")
-    assert Map.has_key?(response["meta"], "token")
+    assert Map.has_key?(response, "token")
   end
 
   test "unauthenticate session route revokes jwt and returns OK", %{conn: conn} do
@@ -41,14 +33,14 @@ defmodule Udia.Web.SessionControllerTest do
     # Login
     conn = post conn, session_path(conn, :create), @login_attrs
     assert json_response(conn, 201)
-    old_jwt = json_response(conn, 201)["meta"]["token"]
+    old_jwt = json_response(conn, 201)["token"]
 
     # Refresh the token
     conn = build_conn()
     |> put_req_header("authorization", "Bearer: #{old_jwt}")
     conn = post conn, session_path(conn, :refresh)
     assert json_response(conn, 200)
-    new_jwt = json_response(conn, 200)["meta"]["token"]
+    new_jwt = json_response(conn, 200)["token"]
 
     # Assert tokens are not equal
     assert old_jwt !== new_jwt

@@ -13,31 +13,14 @@ defmodule Udia.Web.UserControllerTest do
     conn = post conn, user_path(conn, :create), user: @create_attrs
     response = json_response(conn, 201)
 
-    assert %{
-      "id" => id,
-      "email" => "test@udia.ca",
-      "username" => "udia",
-    } = response["data"]
-
-    assert is_integer(id)
-    assert Map.has_key?(response, "meta")
-    assert Map.has_key?(response["meta"], "token")
-    assert Map.has_key?(response["meta"], "exp")
+    assert Map.has_key?(response, "token")
   end
 
   test "creates user and renders user when data is valid (no email)", %{conn: conn} do
     conn = post conn, user_path(conn, :create), user: @create_emailless_attrs
     response = json_response(conn, 201)
 
-    assert %{
-      "id" => id,
-      "username" => "udia",
-    } = response["data"]
-
-    assert is_integer(id)
-    assert Map.has_key?(response, "meta")
-    assert Map.has_key?(response["meta"], "token")
-    assert Map.has_key?(response["meta"], "exp")
+    assert Map.has_key?(response, "token")
   end
 
   test "does not create user if username is taken", %{conn: conn} do

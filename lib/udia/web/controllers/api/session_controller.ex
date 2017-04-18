@@ -7,12 +7,11 @@ defmodule Udia.Web.Api.SessionController do
       {:ok, user} ->
         new_conn = Guardian.Plug.api_sign_in(conn, user, :access)
         jwt = Guardian.Plug.current_token(new_conn)
-        {:ok, claims} = Guardian.Plug.claims(new_conn)
-        exp = Map.get(claims, "exp")
+        {:ok, _claims} = Guardian.Plug.claims(new_conn)
 
         new_conn
         |> put_status(:created)
-        |> render(Udia.Web.SessionView, "show.json", user: user, jwt: jwt, exp: exp)
+        |> render(Udia.Web.SessionView, "show.json", jwt: jwt)
       :error ->
         conn
         |> put_status(:unauthorized)

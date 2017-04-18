@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
 const propTypes = {
-  loggedIn: bool,
+  loggedIn: bool
 };
 
 const defaultProps = {
-  loggedIn: false,
+  loggedIn: false
 };
 
 class Navbar extends Component {
@@ -48,12 +48,12 @@ class Navbar extends Component {
       {loggedIn && <Menu.Menu position="right">
         <Menu.Item
           as={Link}
-          to="/signout"
-          name="signout"
-          active={activeItem === 'signout'}
+          to="/profile"
+          name="profile"
+          active={activeItem === 'profile'}
           onClick={this.handleItemClick}
         >
-          Signout
+          My Profile
         </Menu.Item>
       </Menu.Menu>}
       {!loggedIn && <Menu.Menu position="right">

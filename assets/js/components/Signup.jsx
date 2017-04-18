@@ -9,9 +9,9 @@ const propTypes = {
   data: shape({
     formState: shape({
       username: string,
-      password: string,
-    }),
-  }),
+      password: string
+    })
+  })
 };
 
 const defaultProps = {
@@ -19,9 +19,9 @@ const defaultProps = {
   data: {
     formState: {
       username: '',
-      password: '',
-    },
-  },
+      password: ''
+    }
+  }
 };
 
 class Signup extends Component {
@@ -29,7 +29,7 @@ class Signup extends Component {
     super(props);
     this.state = {
       username: '',
-      password: '',
+      password: ''
     };
 
     this.props.dispatch(clearError());
@@ -39,7 +39,7 @@ class Signup extends Component {
     event.preventDefault();
     this.props.dispatch(registerRequest({
       username: this.state.username,
-      password: this.state.password,
+      password: this.state.password
     }));
   }
 
@@ -89,7 +89,7 @@ Signup.defaultProps = defaultProps;
 
 function select(state) {
   return {
-    data: state,
+    data: state
   };
 }
 
