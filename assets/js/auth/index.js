@@ -1,5 +1,5 @@
 import {
-  del, post,
+  del, post
 } from '../api';
 
 // If testing, use localStorage polyfill, else use browser localStorage
@@ -24,7 +24,7 @@ export function signin(username, password) {
 
   return post('/sessions', {
     username,
-    password,
+    password
   }).then((response) => {
     // Save token to local storage
     localStorage.token = response.token;
@@ -48,8 +48,8 @@ export function signup(username, password) {
   return post('/users', {
     user: {
       username,
-      password,
-    },
+      password
+    }
   }).then((response) => {
     localStorage.token = response.token;
     return Promise.resolve(true);

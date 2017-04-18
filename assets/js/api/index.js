@@ -6,7 +6,7 @@ function headers() {
   return {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Bearer: ${token}`,
+    Authorization: `Bearer: ${token}`
   };
 }
 
@@ -29,7 +29,7 @@ function queryString(params) {
 export function get(url, params = {}) {
   return fetch(`${API}${url}${queryString(params)}`, {
     method: 'GET',
-    headers: headers(),
+    headers: headers()
   })
   .then(parseResponse);
 }
@@ -40,7 +40,7 @@ export function post(url, data) {
   return fetch(`${API}${url}`, {
     method: 'POST',
     headers: headers(),
-    body,
+    body
   })
   .then(parseResponse);
 }
@@ -51,7 +51,7 @@ export function patch(url, data) {
   return fetch(`${API}${url}`, {
     method: 'PATCH',
     headers: headers(),
-    body,
+    body
   })
   .then(parseResponse);
 }
@@ -59,7 +59,7 @@ export function patch(url, data) {
 export function del(url) {
   return fetch(`${API}${url}`, {
     method: 'DELETE',
-    headers: headers(),
+    headers: headers()
   })
   .then(parseResponse);
 }

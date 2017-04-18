@@ -20,6 +20,7 @@
         "window": true
     },
     "rules": {
-        "no-constant-condition": 0
+        "no-constant-condition": 0,
+        "comma-dangle": ["error", "never"]
     }
 }

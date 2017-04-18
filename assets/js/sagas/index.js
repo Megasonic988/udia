@@ -14,18 +14,18 @@ import {
   SET_AUTH,
   LOGOUT,
   CHANGE_FORM,
-  REQUEST_ERROR,
+  REQUEST_ERROR
 } from '../actions/constants';
 
 import { signup, signin, signout } from '../auth';
 
 export function* register({
   username,
-  password,
+  password
 }) {
   yield effects.put({
     type: SENDING_REQUEST,
-    sending: true,
+    sending: true
   });
 
   try {
@@ -33,24 +33,24 @@ export function* register({
   } catch (exception) {
     yield effects.put({
       type: REQUEST_ERROR,
-      error: exception.errors,
+      error: exception.errors
     });
     return false;
   } finally {
     yield effects.put({
       type: SENDING_REQUEST,
-      sending: false,
+      sending: false
     });
   }
 }
 
 export function* login({
   username,
-  password,
+  password
 }) {
   yield effects.put({
     type: SENDING_REQUEST,
-    sending: true,
+    sending: true
   });
 
   try {
@@ -58,13 +58,13 @@ export function* login({
   } catch (exception) {
     yield effects.put({
       type: REQUEST_ERROR,
-      error: exception.error,
+      error: exception.error
     });
     return false;
   } finally {
     yield effects.put({
       type: SENDING_REQUEST,
-      sending: false,
+      sending: false
     });
   }
 }
@@ -75,7 +75,7 @@ export function* login({
 export function* logout() {
   yield effects.put({
     type: SENDING_REQUEST,
-    sending: true,
+    sending: true
   });
 
   try {
@@ -84,13 +84,13 @@ export function* logout() {
   } catch (error) {
     yield effects.put({
       type: REQUEST_ERROR,
-      error: error.message,
+      error: error.message
     });
     return false;
   } finally {
     yield effects.put({
       type: SENDING_REQUEST,
-      sending: false,
+      sending: false
     });
   }
 }
@@ -103,28 +103,28 @@ export function* loginFlow() {
     const request = yield effects.take(LOGIN_REQUEST);
     const {
       username,
-      password,
+      password
     } = request.data;
 
     const winner = yield effects.race({
       auth: effects.call(login, {
         username,
-        password,
+        password
       }),
-      logout: effects.take(LOGOUT),
+      logout: effects.take(LOGOUT)
     });
 
     if (winner.auth) {
       yield effects.put({
         type: SET_AUTH,
-        newAuthState: true,
+        newAuthState: true
       });
       yield effects.put({
         type: CHANGE_FORM,
         newFormState: {
           username: '',
-          password: '',
-        },
+          password: ''
+        }
       });
     }
   }
@@ -138,7 +138,7 @@ export function* logoutFlow() {
     yield effects.take(LOGOUT);
     yield effects.put({
       type: SET_AUTH,
-      newAuthState: false,
+      newAuthState: false
     });
 
     yield effects.call(logout);
@@ -153,25 +153,25 @@ export function* registerFlow() {
     const request = yield effects.take(REGISTER_REQUEST);
     const {
       username,
-      password,
+      password
     } = request.data;
 
     const wasSuccessful = yield effects.call(register, {
       username,
-      password,
+      password
     });
 
     if (wasSuccessful) {
       yield effects.put({
         type: SET_AUTH,
-        newAuthState: true,
+        newAuthState: true
       });
       yield effects.put({
         type: CHANGE_FORM,
         newFormState: {
           username: '',
-          password: '',
-        },
+          password: ''
+        }
       });
     }
   }

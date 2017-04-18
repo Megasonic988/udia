@@ -11,7 +11,7 @@ import {
   REGISTER_REQUEST,
   LOGOUT,
   REQUEST_ERROR,
-  CLEAR_ERROR,
+  CLEAR_ERROR
 } from './constants';
 
 /**
@@ -23,7 +23,7 @@ import {
 export function changeForm(newFormState) {
   return {
     type: CHANGE_FORM,
-    newFormState,
+    newFormState
   };
 }
 
@@ -34,7 +34,7 @@ export function changeForm(newFormState) {
 export function setAuthState(newAuthState) {
   return {
     type: SET_AUTH,
-    newAuthState,
+    newAuthState
   };
 }
 
@@ -45,7 +45,7 @@ export function setAuthState(newAuthState) {
 export function sendingRequest(sending) {
   return {
     type: SENDING_REQUEST,
-    sending,
+    sending
   };
 }
 
@@ -58,7 +58,7 @@ export function sendingRequest(sending) {
 export function loginRequest(data) {
   return {
     type: LOGIN_REQUEST,
-    data,
+    data
   };
 }
 
@@ -67,7 +67,7 @@ export function loginRequest(data) {
  */
 export function logout() {
   return {
-    type: LOGOUT,
+    type: LOGOUT
   };
 }
 
@@ -80,7 +80,7 @@ export function logout() {
 export function registerRequest(data) {
   return {
     type: REGISTER_REQUEST,
-    data,
+    data
   };
 }
 
@@ -91,7 +91,7 @@ export function registerRequest(data) {
 export function requestError(error) {
   return {
     type: REQUEST_ERROR,
-    error,
+    error
   };
 }
 
@@ -100,6 +100,6 @@ export function requestError(error) {
  */
 export function clearError() {
   return {
-    type: CLEAR_ERROR,
+    type: CLEAR_ERROR
   };
 }

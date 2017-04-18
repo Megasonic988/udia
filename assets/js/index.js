@@ -13,7 +13,7 @@ import rootSaga from './sagas';
 import App from './components/App';
 
 const logger = createLogger({
-  predicate: (getState, action) => action.type !== 'CHANGE_FORM',
+  predicate: (getState, action) => action.type !== 'CHANGE_FORM'
 });
 
 const sagaMiddleware = createSagaMiddleware();
