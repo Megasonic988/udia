@@ -1,8 +1,11 @@
 defmodule Udia.Web.SessionView do
   use Udia.Web, :view
 
-  def render("show.json", %{jwt: jwt}) do
-    %{token: jwt}
+  def render("show.json", %{user: user, jwt: jwt}) do
+    %{
+      user: render_one(user, Udia.Web.UserView, "user.json"),
+      token: jwt
+    }
   end
 
   def render("error.json", _) do

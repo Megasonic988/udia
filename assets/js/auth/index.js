@@ -1,17 +1,23 @@
-import {
-  del, post
-} from '../api';
+import { del, post } from '../api';
 
 // If testing, use localStorage polyfill, else use browser localStorage
 const localStorage = global.process && process.env.NODE_ENV === 'test' ?
   // eslint-disable-next-line import/no-extraneous-dependencies
   require('localStorage') : global.window.localStorage;
 
+export function me() {
+  const strCurrentUser = localStorage.getItem('currentUser');
+  if (strCurrentUser) {
+    return JSON.parse(strCurrentUser);
+  }
+  return null;
+}
+
 /**
  * Checks if a user is logged in
  */
 export function signedIn() {
-  return !!localStorage.token;
+  return !!localStorage.getItem('token');
 }
 
 /**
@@ -27,7 +33,8 @@ export function signin(username, password) {
     password
   }).then((response) => {
     // Save token to local storage
-    localStorage.token = response.token;
+    localStorage.setItem('token', response.token);
+    localStorage.setItem('currentUser', JSON.stringify(response.user));
     return Promise.resolve(true);
   });
 }
@@ -37,7 +44,8 @@ export function signin(username, password) {
  */
 export function signout() {
   localStorage.removeItem('token');
-  return del('/sessions');
+  localStorage.removeItem('currentUser');
+  return del('/sessions').then(() => Promise.resolve(true));
 }
 
 /**
@@ -52,7 +60,8 @@ export function signup(username, password) {
       password
     }
   }).then((response) => {
-    localStorage.token = response.token;
+    localStorage.setItem('token', response.token);
+    localStorage.setItem('currentUser', JSON.stringify(response.user));
     return Promise.resolve(true);
   });
 }

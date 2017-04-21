@@ -1,16 +1,18 @@
 import {
   SET_AUTH,
+  SET_USER,
   SENDING_REQUEST,
   REQUEST_ERROR,
   CLEAR_ERROR
 } from '../actions/constants';
-import { signedIn } from '../auth';
+import { me, signedIn } from '../auth';
 
 // The initial application state
 const initialState = {
   error: '',
   currentlySending: false,
-  loggedIn: signedIn()
+  loggedIn: signedIn(),
+  currentUser: me()
 };
 
 // Takes care of changing the application state
@@ -19,6 +21,10 @@ function reducer(state = initialState, action) {
     case SET_AUTH:
       return { ...state,
         loggedIn: action.newAuthState
+      };
+    case SET_USER:
+      return { ...state,
+        currentUser: action.newUserState
       };
     case SENDING_REQUEST:
       return { ...state,

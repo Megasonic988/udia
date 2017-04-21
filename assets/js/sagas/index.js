@@ -12,12 +12,12 @@ import {
   LOGIN_REQUEST,
   REGISTER_REQUEST,
   SET_AUTH,
+  SET_USER,
   LOGOUT,
-  CHANGE_FORM,
   REQUEST_ERROR
 } from '../actions/constants';
 
-import { signup, signin, signout } from '../auth';
+import { me, signup, signin, signout } from '../auth';
 
 export function* register({
   username,
@@ -120,11 +120,8 @@ export function* loginFlow() {
         newAuthState: true
       });
       yield effects.put({
-        type: CHANGE_FORM,
-        newFormState: {
-          username: '',
-          password: ''
-        }
+        type: SET_USER,
+        newUserState: me()
       });
     }
   }
@@ -140,7 +137,10 @@ export function* logoutFlow() {
       type: SET_AUTH,
       newAuthState: false
     });
-
+    yield effects.put({
+      type: SET_USER,
+      newUserState: me()
+    });
     yield effects.call(logout);
   }
 }
@@ -167,11 +167,8 @@ export function* registerFlow() {
         newAuthState: true
       });
       yield effects.put({
-        type: CHANGE_FORM,
-        newFormState: {
-          username: '',
-          password: ''
-        }
+        type: SET_USER,
+        newUserState: me()
       });
     }
   }

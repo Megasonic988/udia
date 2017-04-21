@@ -4,8 +4,8 @@
 
 // We import constants to name our actions' type
 import {
-  CHANGE_FORM,
   SET_AUTH,
+  SET_USER,
   SENDING_REQUEST,
   LOGIN_REQUEST,
   REGISTER_REQUEST,
@@ -15,19 +15,6 @@ import {
 } from './constants';
 
 /**
- * Sets the form state
- * @param  {object} newFormState          The new state of the form
- * @param  {string} newFormState.username The new text of the username input field of the form
- * @param  {string} newFormState.password The new text of the password input field of the form
- */
-export function changeForm(newFormState) {
-  return {
-    type: CHANGE_FORM,
-    newFormState
-  };
-}
-
-/**
  * Sets the authentication state of the application
  * @param  {boolean} newAuthState True means a user is logged in, false means no user is logged in
  */
@@ -35,6 +22,13 @@ export function setAuthState(newAuthState) {
   return {
     type: SET_AUTH,
     newAuthState
+  };
+}
+
+export function setUser(newUserState) {
+  return {
+    type: SET_USER,
+    newUserState
   };
 }
 

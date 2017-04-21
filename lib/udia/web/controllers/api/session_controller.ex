@@ -11,7 +11,7 @@ defmodule Udia.Web.Api.SessionController do
 
         new_conn
         |> put_status(:created)
-        |> render(Udia.Web.SessionView, "show.json", jwt: jwt)
+        |> render(Udia.Web.SessionView, "show.json", user: user, jwt: jwt)
       :error ->
         conn
         |> put_status(:unauthorized)
@@ -33,11 +33,10 @@ defmodule Udia.Web.Api.SessionController do
     jwt = Guardian.Plug.current_token(conn)
     case Guardian.Plug.claims(conn) do
       {:ok, claims} ->
-        {:ok, new_jwt, new_claims} = Guardian.refresh!(jwt, claims, %{ttl: {30, :days}})
-        exp = Map.get(new_claims, "exp")
+        {:ok, new_jwt, _new_claims} = Guardian.refresh!(jwt, claims, %{ttl: {30, :days}})
         conn
         |> put_status(:ok)
-        |> render(Udia.Web.SessionView, "show.json", user: user, jwt: new_jwt, exp: exp)
+        |> render(Udia.Web.SessionView, "show.json", user: user, jwt: new_jwt)
       {:error, _reason} ->
         conn
         |> put_status(:forbidden)

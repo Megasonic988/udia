@@ -1,5 +1,5 @@
-export const CHANGE_FORM = 'CHANGE_FORM';
 export const SET_AUTH = 'SET_AUTH';
+export const SET_USER = 'SET_USER';
 export const SENDING_REQUEST = 'SENDING_REQUEST';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';

@@ -13,11 +13,15 @@ defmodule Udia.Web.Api.UserController do
 
         new_conn
         |> put_status(:created)
-        |> render(Udia.Web.SessionView, "show.json", jwt: jwt)
+        |> render(Udia.Web.SessionView, "show.json", user: user, jwt: jwt)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
         |> render(Udia.Web.ChangesetView, "error.json", changeset: changeset)
     end
+  end
+
+  def me(conn, _params) do
+    Guardian.Plug.current_resource(conn)
   end
 end

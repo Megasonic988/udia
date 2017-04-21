@@ -37,6 +37,8 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :guardian, Guardian,
+  allowed_algos: ["HS512"],
+  verivy_module: Guardian.JWT,
   issuer: "Udia",
   ttl: {30, :days},
   verify_issuer: true,

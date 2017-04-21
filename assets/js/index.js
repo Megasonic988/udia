@@ -12,9 +12,7 @@ import reducer from './reducers';
 import rootSaga from './sagas';
 import App from './components/App';
 
-const logger = createLogger({
-  predicate: (getState, action) => action.type !== 'CHANGE_FORM'
-});
+const logger = createLogger();
 
 const sagaMiddleware = createSagaMiddleware();
 

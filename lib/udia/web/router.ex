@@ -30,6 +30,7 @@ defmodule Udia.Web.Router do
 
   scope "/api", Udia.Web.Api do
     pipe_through [:api, :auth]
+    get "/users/me", UserController, :me
   end
 
   scope "/", Udia.Web do
