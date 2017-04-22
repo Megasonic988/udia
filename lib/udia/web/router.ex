@@ -26,11 +26,14 @@ defmodule Udia.Web.Router do
     delete "/sessions", SessionController, :delete
     post "/sessions/refresh", SessionController, :refresh
     resources "/users", UserController, only: [:create]
+    resources "/posts", PostController, only: [:index, :show]
   end
 
   scope "/api", Udia.Web.Api do
     pipe_through [:api, :auth]
+
     get "/users/me", UserController, :me
+    resources "/posts", PostController, only: [:create, :update, :delete]
   end
 
   scope "/", Udia.Web do

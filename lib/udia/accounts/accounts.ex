@@ -26,6 +26,10 @@ defmodule Udia.Accounts do
     |> Repo.insert()
   end
 
+  def get_user!(username) do
+    Repo.get_by!(User, username: username)
+  end
+
   defp user_changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:username, :email])

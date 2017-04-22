@@ -5,16 +5,10 @@ import { Container, Header } from 'semantic-ui-react';
 
 const propTypes = {
   currentUser: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     email: PropTypes.string
   }).isRequired
-};
-
-const defaultProps = {
-  currentUser: {
-    email: 'n/a'
-  }
 };
 
 class Profile extends Component {
@@ -29,14 +23,13 @@ class Profile extends Component {
         <Header as="h2">Profile</Header>
         <p>ID: {currentUser.id}</p>
         <p>Username: {currentUser.username}</p>
-        <p>Email: {currentUser.email}</p>
+        <p>Email: {currentUser.email || 'No Email Provided'}</p>
       </Container>
     );
   }
 }
 
 Profile.propTypes = propTypes;
-Profile.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return state;

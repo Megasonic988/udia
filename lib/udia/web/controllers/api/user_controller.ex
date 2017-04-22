@@ -22,6 +22,9 @@ defmodule Udia.Web.Api.UserController do
   end
 
   def me(conn, _params) do
-    Guardian.Plug.current_resource(conn)
+    user = Guardian.Plug.current_resource(conn)
+    conn
+    |> put_status(:ok)
+    |> render(Udia.Web.UserView, "user.json", user: user)
   end
 end

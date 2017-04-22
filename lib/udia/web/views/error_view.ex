@@ -9,6 +9,17 @@ defmodule Udia.Web.ErrorView do
     "Internal server error"
   end
 
+  # Single Error as a string
+  def render("error.json", error) do
+    %{error: error}
+  end
+
+  # Multiple Errors as an array of strings or a map
+  def render("errors.json", errors) do
+    %{errors: errors}
+  end
+
+
   # In case no render clause matches or no
   # template is found, let's render it as 500
   def template_not_found(_template, assigns) do
