@@ -8,7 +8,7 @@ defmodule Udia.Web.SessionControllerTest do
   @nil_attrs %{username: nil, password: nil}
 
   setup %{conn: conn} do
-    Udia.Accounts.create_user(@create_attrs)
+    insert_user(@create_attrs)
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end
 

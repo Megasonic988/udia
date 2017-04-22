@@ -14,6 +14,6 @@ defmodule Udia.Web.PostView do
     %{id: post.id,
       title: post.title,
       content: post.content,
-      creator: post.creator}
+      creator: render_one(post.creator, Udia.Web.UserView, "user.json")}
   end
 end

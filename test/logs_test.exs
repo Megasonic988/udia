@@ -12,7 +12,7 @@ defmodule Udia.LogsTest do
     assert Logs.list_posts == []
 
     user = insert_user(username: "udia")
-    post = insert_post(user, @create_attrs)
+    post = insert_post(user, @create_attrs) |> Udia.Repo.preload(:creator)
 
     assert Logs.list_posts == [post]
   end

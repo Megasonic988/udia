@@ -20,6 +20,7 @@ defmodule Udia.Logs do
   def list_posts do
     Post
     |> Repo.all()
+    |> Repo.preload(:creator)
   end
 
   @doc """
