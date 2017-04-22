@@ -9,13 +9,26 @@ defmodule Udia.Web.Api.PostController do
     render(conn, Udia.Web.PostView, "index.json", posts: posts)
   end
 
-  def create(conn, %{"post" => post_params}) do
+  def create(conn, post_params) do
     user = Guardian.Plug.current_resource(conn)
-    with {:ok, %Post{} = post} <- Logs.create_post(user, post_params) do
+
+    if post_params["title"] == nil or post_params["content"] == nil do
       conn
-      |> put_status(:created)
-      |> put_resp_header("location", post_path(conn, :show, post))
-      |> render(Udia.Web.PostView, "show.json", post: post)
+        |> put_status(:bad_request)
+        |> render(Udia.Web.ErrorView, "error.json", error: "Post must have title and content")
+    else
+      case Logs.create_post(user, post_params) do
+        {:ok, %Post{} = post} ->
+          post = post |> Udia.Repo.preload(:creator)
+          conn
+          |> put_status(:created)
+          |> put_resp_header("location", post_path(conn, :show, post))
+          |> render(Udia.Web.PostView, "show.json", post: post)
+        {:error, msg} ->
+          conn
+          |> put_status(:bad_request)
+          |> render(Udia.Web.ErrorView, "error.json", error: msg)
+      end
     end
   end
 
@@ -33,7 +46,9 @@ defmodule Udia.Web.Api.PostController do
         render(conn, Udia.Web.PostView, "show.json", post: post)
       end
     else
-      {:error, "User does not match post creator."}
+      conn
+      |> put_status(:forbidden)
+      |> render(Udia.Web.ErrorView, "error.json", error: "User does not match post creator.")
     end
   end
 
@@ -46,7 +61,9 @@ defmodule Udia.Web.Api.PostController do
         send_resp(conn, :no_content, "")
       end
     else
-      {:error, "User does not match post creator."}
+      conn
+      |> put_status(:forbidden)
+      |> render(Udia.Web.ErrorView, "error.json", error: "User does not match post creator.")
     end
   end
 end
