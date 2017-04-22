@@ -10,12 +10,12 @@ defmodule Udia.Web.ErrorView do
   end
 
   # Single Error as a string
-  def render("error.json", error) do
+  def render("error.json", %{error: error}) do
     %{error: error}
   end
 
   # Multiple Errors as an array of strings or a map
-  def render("errors.json", errors) do
+  def render("errors.json", %{errors: errors}) do
     %{errors: errors}
   end
 

@@ -11,7 +11,8 @@ defmodule Udia.Accounts.User do
     field :email, :string
     field :password_hash, :string
     field :password, :string, virtual: true
+    has_many :posts, Udia.Logs.Post, foreign_key: :creator_id
 
-    timestamps([type: :utc_datetime])
+    timestamps(type: :utc_datetime)
   end
 end

@@ -15,6 +15,8 @@ defmodule Udia.Web.UserControllerTest do
 
     assert Map.has_key?(response, "token")
     assert Map.has_key?(response, "user")
+    assert response["user"]["username"] == "udia"
+    assert response["user"]["id"]
   end
 
   test "creates user and returns user token, object when data is valid (no email)", %{conn: conn} do

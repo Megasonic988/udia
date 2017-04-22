@@ -15,7 +15,7 @@ defmodule Udia.Web.Api.SessionController do
       :error ->
         conn
         |> put_status(:unauthorized)
-        |> render(Udia.Web.SessionView, "error.json")
+        |> render(Udia.Web.ErrorView, "error.json", error: "Invalid username or password")
     end
   end
 
@@ -40,7 +40,7 @@ defmodule Udia.Web.Api.SessionController do
       {:error, _reason} ->
         conn
         |> put_status(:forbidden)
-        |> render(Udia.Web.SessionView, "forbidden.json", error: "Not Authenticated")
+        |> render(Udia.Web.ErrorView, "error.json", error: "Not Authenticated")
     end
   end
 

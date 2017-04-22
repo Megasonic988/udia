@@ -9,7 +9,7 @@ defmodule Udia.Logs.Post do
   schema "logs_posts" do
     field :title, :string
     field :content, :string
-    belongs_to :creator, Udia.Accounts.User
+    belongs_to :creator, Udia.Accounts.User, type: :binary_id
 
     timestamps(type: :utc_datetime)
   end

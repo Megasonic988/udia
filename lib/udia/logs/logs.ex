@@ -18,7 +18,9 @@ defmodule Udia.Logs do
 
   """
   def list_posts do
-    Repo.all(Post)
+    Post
+    |> Repo.all()
+    |> Repo.preload(:creator)
   end
 
   @doc """
@@ -35,7 +37,11 @@ defmodule Udia.Logs do
       ** (Ecto.NoResultsError)
 
   """
-  def get_post!(id), do: Repo.get!(Post, id)
+  def get_post!(id) do
+    Post
+    |> Repo.get!(id)
+    |> Repo.preload(:creator)
+  end
 
   @doc """
   Creates a post.
@@ -49,8 +55,9 @@ defmodule Udia.Logs do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_post(attrs \\ %{}) do
-    %Post{}
+  def create_post(user, attrs \\ %{}) do
+    user
+    |> Ecto.build_assoc(:posts, attrs)
     |> post_changeset(attrs)
     |> Repo.insert()
   end
@@ -85,8 +92,10 @@ defmodule Udia.Logs do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_post(%Post{} = post) do
-    Repo.delete(post)
+  def delete_post(id) do
+    id
+    |> get_post!
+    |> Repo.delete!
   end
 
   @doc """
@@ -104,7 +113,7 @@ defmodule Udia.Logs do
 
   defp post_changeset(%Post{} = post, attrs) do
     post
-    |> cast(attrs, [:title, :type, :content, :creator])
-    |> validate_required([:title, :type, :content, :creator])
+    |> cast(attrs, [:title, :content])
+    |> validate_required([:title, :content])
   end
 end
