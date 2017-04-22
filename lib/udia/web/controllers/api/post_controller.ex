@@ -42,8 +42,14 @@ defmodule Udia.Web.Api.PostController do
     post = Logs.get_post!(id)
 
     if post.creator.id == user.id do
-      with {:ok, %Post{} = post} <- Logs.update_post(post, post_params) do
-        render(conn, Udia.Web.PostView, "show.json", post: post)
+      if post_params["title"] == nil or post_params["content"] == nil do
+        conn
+          |> put_status(:bad_request)
+          |> render(Udia.Web.ErrorView, "error.json", error: "Post must have title and content")
+      else
+        with {:ok, %Post{} = post} <- Logs.update_post(post, post_params) do
+          render(conn, Udia.Web.PostView, "show.json", post: post)
+        end
       end
     else
       conn
