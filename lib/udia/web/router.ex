@@ -27,6 +27,7 @@ defmodule Udia.Web.Router do
     post "/sessions/refresh", SessionController, :refresh
     resources "/users", UserController, only: [:create]
     resources "/posts", PostController, only: [:index, :show]
+    resources "/comments", CommentController, except: [:new, :edit]
   end
 
   scope "/api", Udia.Web.Api do
